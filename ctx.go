@@ -67,6 +67,11 @@ func CancelRequest(ctx context.Context, id string) {
 	s.cancelRequests(ctx, []json.RawMessage{json.RawMessage(id)})
 }
 
+func ServerFromContext(ctx context.Context) (*Server, bool) {
+	s, ok := ctx.Value(serverKey{}).(*Server)
+	return s, ok
+}
+
 type serverKey struct{}
 
 // ErrPushUnsupported is returned by PushNotify and PushCall if server pushes
